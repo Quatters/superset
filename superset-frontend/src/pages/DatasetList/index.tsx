@@ -23,6 +23,7 @@ import {
   useTheme,
   css,
   t,
+  SafeMarkdown,
 } from '@superset-ui/core';
 import { FunctionComponent, useState, useMemo, useCallback, Key } from 'react';
 import { Link, useHistory } from 'react-router-dom';
@@ -333,7 +334,11 @@ const DatasetList: FunctionComponent<DatasetListProps> = ({
                   />
                 )}
                 {titleLink}
-                {description && <InfoTooltip tooltip={description} />}
+                {description && (
+                  <InfoTooltip
+                    tooltip={<SafeMarkdown source={description} />}
+                  />
+                )}
               </FlexRowContainer>
             );
           } catch {

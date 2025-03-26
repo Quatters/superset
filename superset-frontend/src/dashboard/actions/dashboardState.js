@@ -290,6 +290,7 @@ export function saveDashboardRequest(data, id, saveType) {
       certification_details,
       css,
       dashboard_title,
+      description,
       owners,
       roles,
       slug,
@@ -309,6 +310,7 @@ export function saveDashboardRequest(data, id, saveType) {
         certified_by && certification_details ? certification_details : '',
       css: css || '',
       dashboard_title: dashboard_title || t('[ untitled dashboard ]'),
+      description: description || '',
       owners: ensureIsArray(owners).map(o => (hasId(o) ? o.id : o)),
       roles: !isFeatureEnabled(FeatureFlag.DashboardRbac)
         ? undefined
@@ -443,6 +445,7 @@ export function saveDashboardRequest(data, id, saveType) {
               certification_details: cleanedData.certification_details,
               css: cleanedData.css,
               dashboard_title: cleanedData.dashboard_title,
+              description: cleanedData.description,
               slug: cleanedData.slug,
               owners: cleanedData.owners,
               roles: cleanedData.roles,

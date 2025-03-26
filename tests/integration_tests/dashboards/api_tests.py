@@ -512,7 +512,7 @@ class TestDashboardApi(ApiOwnersTestCaseMixin, InsertChartMixin, SupersetTestCas
         """
         admin = self.get_user("admin")
         dashboard = self.insert_dashboard(
-            "title", "slug1", [admin.id], created_by=admin
+            "title", "slug1", [admin.id], created_by=admin, description="description"
         )
         self.login(ADMIN_USERNAME)
         uri = f"api/v1/dashboard/{dashboard.id}"
@@ -533,6 +533,7 @@ class TestDashboardApi(ApiOwnersTestCaseMixin, InsertChartMixin, SupersetTestCas
                 "id": dashboard.id,
                 "css": "",
                 "dashboard_title": "title",
+                "description": "description",
                 "datasources": [],
                 "json_metadata": "",
                 "owners": [

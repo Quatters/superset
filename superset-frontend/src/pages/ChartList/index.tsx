@@ -26,6 +26,7 @@ import {
   t,
   useTheme,
   css,
+  SafeMarkdown,
 } from '@superset-ui/core';
 import { useState, useMemo, useCallback } from 'react';
 import rison from 'rison';
@@ -357,7 +358,9 @@ function ChartList(props: ChartListProps) {
               )}
               {sliceName}
             </Link>
-            {description && <InfoTooltip tooltip={description} />}
+            {description && (
+              <InfoTooltip tooltip={<SafeMarkdown source={description} />} />
+            )}
           </FlexRowContainer>
         ),
         Header: t('Name'),

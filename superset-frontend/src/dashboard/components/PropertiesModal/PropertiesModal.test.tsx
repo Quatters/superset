@@ -126,6 +126,7 @@ const dashboardInfo = {
   ],
   css: '',
   dashboard_title: 'COVID Vaccine Dashboard',
+  description: 'Sample description',
   id: 26,
   metadata: mockedJsonMetadata,
   owners: [],
@@ -201,7 +202,7 @@ describe('PropertiesModal', () => {
     expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
     expect(screen.getAllByRole('button')).toHaveLength(4);
 
-    expect(screen.getAllByRole('textbox')).toHaveLength(4);
+    expect(screen.getAllByRole('textbox')).toHaveLength(5);
     expect(screen.getByRole('combobox')).toBeInTheDocument();
 
     expect(spyColorSchemeControlWrapper).toHaveBeenCalledWith(
@@ -245,7 +246,7 @@ describe('PropertiesModal', () => {
     expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
     expect(screen.getAllByRole('button')).toHaveLength(4);
 
-    expect(screen.getAllByRole('textbox')).toHaveLength(4);
+    expect(screen.getAllByRole('textbox')).toHaveLength(5);
     expect(screen.getAllByRole('combobox')).toHaveLength(3);
 
     expect(spyColorSchemeControlWrapper).toHaveBeenCalledWith(
@@ -264,10 +265,10 @@ describe('PropertiesModal', () => {
       await screen.findByTestId('dashboard-edit-properties-form'),
     ).toBeInTheDocument();
 
-    expect(screen.getAllByRole('textbox')).toHaveLength(4);
+    expect(screen.getAllByRole('textbox')).toHaveLength(5);
     expect(screen.getAllByRole('combobox')).toHaveLength(3);
     userEvent.click(screen.getByRole('button', { name: 'Advanced' }));
-    expect(screen.getAllByRole('textbox')).toHaveLength(5);
+    expect(screen.getAllByRole('textbox')).toHaveLength(6);
     expect(screen.getAllByRole('combobox')).toHaveLength(3);
   });
 
@@ -320,6 +321,7 @@ describe('PropertiesModal', () => {
       expect(props.onSubmit).toHaveBeenCalledWith({
         certificationDetails: 'Sample certification',
         certifiedBy: 'John Doe',
+        description: 'Sample description',
         colorScheme: 'supersetColors',
         colorNamespace: undefined,
         id: 26,

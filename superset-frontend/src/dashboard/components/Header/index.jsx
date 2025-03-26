@@ -409,6 +409,7 @@ const Header = () => {
       certification_details: dashboardInfo.certification_details,
       css: customCss,
       dashboard_title: dashboardTitle,
+      description: dashboardInfo.description,
       last_modified_time: actualLastModifiedTime,
       owners: dashboardInfo.owners,
       roles: dashboardInfo.roles,
@@ -511,6 +512,7 @@ const Header = () => {
         metadata: JSON.parse(updates.jsonMetadata || '{}'),
         certified_by: updates.certifiedBy,
         certification_details: updates.certificationDetails,
+        description: updates.description,
         owners: updates.owners,
         roles: updates.roles,
       });
@@ -755,6 +757,7 @@ const Header = () => {
       className="dashboard-header-container"
     >
       <PageHeaderWithActions
+        description={dashboardInfo.description}
         editableTitleProps={editableTitleProps}
         certificatiedBadgeProps={certifiedBadgeProps}
         faveStarProps={faveStarProps}

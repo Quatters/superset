@@ -18,7 +18,7 @@
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { omit } from 'lodash';
-import { Input } from 'src/components/Input';
+import { Input, TextArea } from 'src/components/Input';
 import { FormItem } from 'src/components/Form';
 import jsonStringify from 'json-stringify-pretty-compact';
 import Button from 'src/components/Button';
@@ -91,6 +91,7 @@ type Owners = {
 type DashboardInfo = {
   id: number;
   title: string;
+  description: string;
   slug: string;
   certifiedBy: string;
   certificationDetails: string;
@@ -181,6 +182,7 @@ const PropertiesModal = ({
       const {
         id,
         dashboard_title,
+        description,
         slug,
         certified_by,
         certification_details,
@@ -192,6 +194,7 @@ const PropertiesModal = ({
       const dashboardInfo = {
         id,
         title: dashboard_title,
+        description: description || '',
         slug: slug || '',
         certifiedBy: certified_by || '',
         certificationDetails: certification_details || '',
@@ -320,7 +323,7 @@ const PropertiesModal = ({
   };
 
   const onFinish = () => {
-    const { title, slug, certifiedBy, certificationDetails } =
+    const { title, description, slug, certifiedBy, certificationDetails } =
       form.getFieldsValue();
     let currentJsonMetadata = jsonMetadata;
 
@@ -394,6 +397,7 @@ const PropertiesModal = ({
     const onSubmitProps = {
       id: dashboardId,
       title,
+      description,
       slug,
       jsonMetadata: currentJsonMetadata,
       owners,
@@ -413,6 +417,7 @@ const PropertiesModal = ({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           dashboard_title: title,
+          description: description || null,
           slug: slug || null,
           json_metadata: currentJsonMetadata || null,
           owners: (owners || []).map(o => o.id),
@@ -651,13 +656,25 @@ const PropertiesModal = ({
                 disabled={isLoading}
               />
             </FormItem>
-          </Col>
-          <Col xs={24} md={12}>
             <StyledFormItem label={t('URL slug')} name="slug">
               <Input type="text" disabled={isLoading} />
             </StyledFormItem>
             <p className="help-block">
               {t('A readable URL for your dashboard')}
+            </p>
+          </Col>
+          <Col xs={24} md={12}>
+            <StyledFormItem label={t('Description')} name="description">
+              <TextArea
+                rows={3}
+                disabled={isLoading}
+                style={{ maxWidth: '100%', resize: 'vertical' }}
+              />
+            </StyledFormItem>
+            <p className="help-block">
+              {t(
+                'Displays in tooltip near the name of the dashboard. Supports markdown.',
+              )}
             </p>
           </Col>
         </Row>

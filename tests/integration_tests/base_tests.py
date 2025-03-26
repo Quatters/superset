@@ -564,6 +564,7 @@ class SupersetTestCase(TestCase):
         published: bool = False,
         certified_by: Optional[str] = None,
         certification_details: Optional[str] = None,
+        description: Optional[str] = None,
     ) -> Dashboard:
         obj_owners = list()  # noqa: C408
         obj_roles = list()  # noqa: C408
@@ -587,6 +588,7 @@ class SupersetTestCase(TestCase):
             created_by=created_by,
             certified_by=certified_by,
             certification_details=certification_details,
+            description=description,
         )
         db.session.add(dashboard)
         db.session.commit()

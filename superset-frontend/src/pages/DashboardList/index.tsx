@@ -24,6 +24,7 @@ import {
   t,
   css,
   useTheme,
+  SafeMarkdown,
 } from '@superset-ui/core';
 import { useSelector } from 'react-redux';
 import { useState, useMemo, useCallback } from 'react';
@@ -71,6 +72,7 @@ import { DashboardStatus } from 'src/features/dashboards/types';
 import { UserWithPermissionsAndRoles } from 'src/types/bootstrapTypes';
 import { findPermission } from 'src/utils/findPermission';
 import { ModifiedInfo } from 'src/components/AuditInfo';
+import InfoTooltip from 'src/components/InfoTooltip';
 
 const PAGE_SIZE = 25;
 const PASSWORDS_NEEDED_MESSAGE = t(
@@ -114,9 +116,19 @@ const Actions = styled.div`
   color: ${({ theme }) => theme.colors.grayscale.base};
 `;
 
+const VerticallyCentered = styled.div`
+  display: flex;
+  align-items: center;
+
+  svg {
+    margin-right: ${({ theme }) => theme.gridUnit}px;
+  }
+`;
+
 const DASHBOARD_COLUMNS_TO_FETCH = [
   'id',
   'dashboard_title',
+  'description',
   'published',
   'url',
   'slug',
@@ -235,6 +247,7 @@ function DashboardList(props: DashboardListProps) {
                 changed_by_name,
                 changed_by,
                 dashboard_title = '',
+                description = '',
                 slug = '',
                 json_metadata = '',
                 changed_on_delta_humanized,
@@ -249,6 +262,7 @@ function DashboardList(props: DashboardListProps) {
                 changed_by_name,
                 changed_by,
                 dashboard_title,
+                description,
                 slug,
                 json_metadata,
                 changed_on_delta_humanized,
@@ -324,21 +338,27 @@ function DashboardList(props: DashboardListProps) {
             original: {
               url,
               dashboard_title: dashboardTitle,
+              description,
               certified_by: certifiedBy,
               certification_details: certificationDetails,
             },
           },
         }: any) => (
           <Link to={url}>
-            {certifiedBy && (
-              <>
-                <CertifiedBadge
-                  certifiedBy={certifiedBy}
-                  details={certificationDetails}
-                />{' '}
-              </>
-            )}
-            {dashboardTitle}
+            <VerticallyCentered>
+              {certifiedBy && (
+                <>
+                  <CertifiedBadge
+                    certifiedBy={certifiedBy}
+                    details={certificationDetails}
+                  />{' '}
+                </>
+              )}
+              {dashboardTitle}
+              {description && (
+                <InfoTooltip tooltip={<SafeMarkdown source={description} />} />
+              )}
+            </VerticallyCentered>
           </Link>
         ),
         Header: t('Name'),

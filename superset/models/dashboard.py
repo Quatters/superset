@@ -257,6 +257,7 @@ class Dashboard(AuditMixinNullable, ImportExportMixin, Model):
             "certification_details": self.certification_details,
             "css": self.css,
             "dashboard_title": self.dashboard_title,
+            "description": self.description,
             "published": self.published,
             "slug": self.slug,
             "slices": [slc.data for slc in self.slices],

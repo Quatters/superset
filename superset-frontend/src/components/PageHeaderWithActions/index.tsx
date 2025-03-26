@@ -17,7 +17,13 @@
  * under the License.
  */
 import { ReactNode, ReactElement } from 'react';
-import { css, SupersetTheme, t, useTheme } from '@superset-ui/core';
+import {
+  css,
+  SafeMarkdown,
+  SupersetTheme,
+  t,
+  useTheme,
+} from '@superset-ui/core';
 import { Dropdown, DropdownProps } from 'src/components/Dropdown';
 import { TooltipPlacement } from 'src/components/Tooltip';
 import {
@@ -28,6 +34,7 @@ import CertifiedBadge, { CertifiedBadgeProps } from '../CertifiedBadge';
 import FaveStar, { FaveStarProps } from '../FaveStar';
 import Icons from '../Icons';
 import Button from '../Button';
+import InfoTooltip from '../InfoTooltip';
 
 export const menuTriggerStyles = (theme: SupersetTheme) => css`
   width: ${theme.gridUnit * 8}px;
@@ -121,6 +128,7 @@ export type PageHeaderWithActionsProps = {
     text?: string;
     placement?: TooltipPlacement;
   };
+  description?: string;
 };
 
 export const PageHeaderWithActions = ({
@@ -135,6 +143,7 @@ export const PageHeaderWithActions = ({
   menuDropdownProps,
   showMenuDropdown = true,
   tooltipProps,
+  description,
 }: PageHeaderWithActionsProps) => {
   const theme = useTheme();
   return (
@@ -143,6 +152,13 @@ export const PageHeaderWithActions = ({
         <DynamicEditableTitle {...editableTitleProps} />
         {showTitlePanelItems && (
           <div css={buttonsStyles}>
+            {description && (
+              <InfoTooltip
+                tooltip={<SafeMarkdown source={description} />}
+                placement="top"
+                iconStyle={{ marginBottom: '1px' }}
+              />
+            )}
             {certificatiedBadgeProps?.certifiedBy && (
               <CertifiedBadge {...certificatiedBadgeProps} />
             )}

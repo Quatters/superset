@@ -24,7 +24,7 @@ import { ActionType } from 'src/types/Action';
 
 export interface InfoTooltipProps {
   iconStyle?: React.CSSProperties;
-  tooltip: string;
+  tooltip: React.ReactNode;
   placement?:
     | 'bottom'
     | 'left'

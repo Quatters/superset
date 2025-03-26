@@ -59,6 +59,7 @@ export interface Dashboard {
   changed_on_utc?: string;
   changed_by: string;
   dashboard_title: string;
+  description?: string;
   slice_name?: string;
   id: number;
   published: boolean;
